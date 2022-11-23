@@ -1,0 +1,100 @@
+def knapSack(W, wt, val, n):
+    #denotes maximum value of items we can pick till capacity of knapsack
+    dp = [0 for i in range(W + 1)]#we start from zero as we want first obj as 1
+
+    for i in range(1, n + 1):#for rows
+
+        for w in range(W, 0, -1):#for columns from 0 to -1
+            if wt[i - 1] <= w:
+                #Approach Tabulation used: for every item, compute the answer for every weight from 0-w
+                # represent as recurrence relation of taking and not taking
+                #max(item not taken,taken with wt of bori-wt of picked item+value of picked item)
+                dp[w] = max(dp[w], dp[w - wt[i - 1]] + val[i - 1])
+
+    return dp[W]
+
+
+W = []  #defined 2 empty arrays 
+V = []
+num = int(input("Enter the number of weights or values required: "))
+
+for i in range(num):
+    n = int(input(f"Enter weight {i+1} : "))
+    W.append(n)
+print("\n")
+
+for i in range(num):
+    n = int(input(f"Enter value {i+1} : "))
+    V.append(n)
+print("\n")
+
+M = int(input("Enter the cost: "))
+n = len(V)
+print("\n")
+print(knapSack(M, W, V, n))
+-------------------------------------
+What is Dynamic Programming?
+● Dynamic Programming is also used in optimization problems. Like divide-and-conquer method, 
+Dynamic Programming solves problems by combining the solutions of subproblems.
+● Dynamic Programming algorithm solves each sub-problem just once and then saves its answer in a table, 
+thereby avoiding the work of re-computing the answer every time.
+● Two main properties of a problem suggest that the given problem can be solved using Dynamic Programming. 
+These properties are overlapping sub-problems and optimal substructure.
+● Dynamic Programming also combines solutions to sub-problems. It is mainly used where the solution of one sub-problem is needed repeatedly. 
+The computed solutions are stored in a table, so that these don’t have to be re-computed. 
+Hence, this technique is needed where overlapping sub- problem exists.
+● For example, Binary Search does not have overlapping sub-problem. 
+Whereas recursive program of Fibonacci numbers have many overlapping sub-problems.
+Steps of Dynamic Programming Approach
+Dynamic Programming algorithm is designed using the following four steps −
+● Characterize the structure of an optimal solution.
+● Recursively define the value of an optimal solution.
+● Compute the value of an optimal solution, typically in a bottom-up fashion.
+● Construct an optimal solution from the computed information.
+Applications of Dynamic Programming Approach
+● Matrix Chain Multiplication
+● Longest Common Subsequence
+● Travelling Salesman Problem
+
+Knapsack Problem
+You are given the following-
+● A knapsack (kind of shoulder bag) with limited weight capacity.
+● Few items each having some weight and value.
+The problem states-
+Which items should be placed into the knapsack such that-
+● The value or profit obtained by putting the items into the knapsack is maximum.
+● And the weight limit of the knapsack does not exceed.
+
+0/1 Knapsack Problem-
+In 0/1 Knapsack Problem,
+● As the name suggests, items are indivisible here.
+● We can not take a fraction of any item.
+● We have to either take an item completely or leave it completely.
+● It is solved using a dynamic programming approach.
+0/1 Knapsack Problem Using Greedy Method-
+Consider-
+● Knapsack weight capacity = w
+● Number of items each having some weight and value = n
+
+0/1 knapsack problem is solved using dynamic programming in the following steps-
+Step-01:
+● Draw a table say ‘T’ with (n+1) number of rows and (w+1) number of columns.
+● Fill all the boxes of 0th row and 0th column with zeroes as shown-
+Step-02:
+Start filling the table row wise top to bottom from left to right. Use the following formula-
+T (i , j) = max { T ( i-1 , j ) , valuei + T( i-1 , j – weighti ) }
+Here, T(i , j) = maximum value of the selected items if we can take items 1 to i and have weight restrictions of j.
+● This step leads to completely filling the table.
+● Then, value of the last box represents the maximum possible value that can be put into the knapsack.
+Step-03:
+● To identify the items that must be put into the knapsack to obtain that maximum profit,
+● Consider the last column of the table.
+● Start scanning the entries from bottom to top.
+● On encountering an entry whose value is not same as the value stored in the entry immediately above it, mark the row label of that entry.
+● After all the entries are scanned, the marked labels represent the items that must be put into the knapsack
+
+Time Complexity-
+● Each entry of the table requires constant time θ(1) for its computation.
+● It takes θ(nw) time to fill (n+1)(w+1) table entries.
+● It takes θ(n) time for tracing the solution since tracing process traces the n rows.
+● Thus, overall θ(nw) time is taken to solve 0/1 knapsack problem using dynamic programming

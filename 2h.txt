@@ -1,0 +1,116 @@
+import heapq    #we are using a Module called heapq. This module is used to build a min-heap tree. 
+#Heap data structure (binary tree)is mainly used to represent a priority queue. In Python, it is available using the “heapq” module.
+#Node of a Huffman Tree  
+class node:
+    def __init__(self, freq, symbol, left=None, right=None):#defined a class as Nodes and initialized some parameters freq, 
+symbol, left and right
+        self.freq = freq
+        self.symbol = symbol
+        self.left = left    # the left node  
+        self.right = right  # the right node  
+        self.huff = '' #initialized the huff variable for tree direction(0 or 1)
+
+    def __lt__(self, nxt):
+        return self.freq < nxt.freq
+
+
+def printNodes(node, val=''): #function to calculate the code for the Huffman encoding and print the symbols with codes for the users.  
+    newVal = val + str(node.huff)   # a huffman code for current node  
+
+    if (node.left):
+        printNodes(node.left, newVal)
+    if (node.right):
+        printNodes(node.right, newVal)
+
+    if (not node.left and not node.right):
+        print(f"{node.symbol} -> {newVal}")
+#we have assigned a variable storing the Huffman code for the current node and used the 
+if conditional statements to add the nodes at the left and right with the current node and return the symbols encoding.
+
+chars = [] #defined an empty array as chars
+freq = [] #defined an empty array as freq
+n = int(input("Enter the number of characters required: "))
+
+for i in range(n):
+    ch = input(f"Enter character number {i+1}: ")
+    chars.append(ch)    #for 2nd iteration:[a,e]    for 3rd iteration:[a,e,i]   and so on
+
+for i in range(n):
+    num = int(input(f"Enter frequency number {i+1}: "))
+    freq.append(num)
+
+nodes = []  #defined an empty array as nodes
+
+#converting symbols into huffman tree nodes  
+for x in range(len(chars)):#We have used the for-loop iterating through the symbols and appending them to the array.
+    heapq.heappush(nodes, node(freq[x], chars[x]))  #This function is used to insert the element mentioned in its arguments into a heap.
+
+while len(nodes) > 1:#used the while loop in order to sort the nodes in ascending order
+    # picking two smallest nodes
+    left = heapq.heappop(nodes) #This function is used to remove and return the smallest element from the heap. 
+    right = heapq.heappop(nodes)
+    left.huff = 0
+    right.huff = 1
+    # combining the 2 smallest nodes to create new node  
+    newNode = node(left.freq + right.freq, left.symbol + right.symbol, left, right)
+    heapq.heappush(nodes, newNode)
+
+printNodes(nodes[0])
+
+What is a Greedy Method?
+● A greedy algorithm is an approach for solving a problem by selecting the best option available at the moment. 
+It doesn't worry whether the current best result will bring the overall optimal result.
+● The algorithm never reverses the earlier decision even if the choice is wrong. It works in a top- down approach.
+● This algorithm may not produce the best result for all the problems. 
+It's because it always goes for the local best choice to produce the global best result.
+Advantages of Greedy Approach
+● The algorithm is easier to describe.
+● This algorithm can perform better than other algorithms (but, not in all cases).
+Drawback of Greedy Approach
+● As mentioned earlier, the greedy algorithm doesn't always produce the optimal solution. 
+This is the major disadvantage of the algorithm
+● For example, suppose we want to find the longest path in the graph below from root to leaf.
+Greedy Algorithm
+1. To begin with, the solution set (containing answers) is empty.
+2. At each step, an item is added to the solution set until a solution is reached.
+3. If the solution set is feasible, the current item is kept.
+4. Else, the item is rejected and never considered again.
+Huffman Encoding
+● Huffman Coding is a technique of compressing data to reduce its size without losing any of the details.
+ It was first developed by David Huffman.
+● Huffman Coding is generally useful to compress the data in which there are frequently occurring
+characters.
+● Huffman Coding is a famous Greedy Algorithm.
+● It is used for the lossless compression of data.
+● It uses variable length encoding.
+● It assigns variable length code to all the characters.
+● The code length of a character depends on how frequently it occurs in the given text.
+● The character which occurs most frequently gets the smallest code.
+● The character which occurs least frequently gets the largest code.
+● It is also known as Huffman Encoding.
+
+Major Steps in Huffman Coding-
+There are two major steps in Huffman Coding-
+1. Building a Huffman Tree from the input characters.
+2. Assigning code to the characters by traversing the Huffman Tree.
+How does Huffman Coding work?
+Each character occupies 8 bits. There are a total of 15 characters in the above string.
+ Thus, a total of 8 * 15 = 120 bits are required to send this string.
+● Using the Huffman Coding technique, we can compress the string to a smaller size.
+Huffman coding first creates a tree using the frequencies of the character and then generates code for each character.
+● Once the data is encoded, it has to be decoded. Decoding is done using the same tree.
+● Huffman Coding prevents any ambiguity in the decoding process using the concept of prefix code ie. 
+a code associated with a character should not be present in the prefix of any other code. 
+The tree created above helps in maintaining the property.
+● Huffman coding is done with the help of the following steps.
+1. Calculate the frequency of each character in the string.
+2. Sort the characters in increasing order of the frequency. These are stored in a priority queue Q.
+3. Make each unique character as a leaf node.
+4. Create an empty node z. Assign the minimum frequency to the left child of z and assign 
+the second minimum frequency to the right child of z. Set the value of the z as the sum of the above two minimum frequencies.
+\
+Time Complexity-
+The time complexity analysis of Huffman Coding is as follows-
+● extractMin( ) is called 2 x (n-1) times if there are n nodes.
+● As extractMin( ) calls minHeapify( ), it takes O(logn) time.
+Thus, Overall time complexity of Huffman Coding becomes O(nlogn).

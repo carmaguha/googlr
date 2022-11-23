@@ -1,0 +1,119 @@
+class KnapsackPackage(object):  #defined a class as KnapsackPackage
+    def __init__(self, weight, value):  #initialized some parameters weight, value
+        self.weight = weight
+        self.value = value
+        self.cost = value / weight  #initialized the cost variable
+
+    def __lt__(self, other):
+        return self.cost < other.cost
+
+class FractionalKnapsack(object):
+    # Main greedy function to solve problem
+    def knapsackGreProc(self, W, V, M, n):
+        packs = []  #defined an empty array as packs
+
+        for i in range(n):
+            packs.append(KnapsackPackage(W[i], V[i]))
+        # Sorting Item on basis of ratio
+        packs.sort(reverse=True)
+         # Result(value in Knapsack)
+        remain = M
+        result = 0
+
+        i = 0
+        stopProc = False
+
+        while (stopProc != True):
+            # If adding Item won't overflow,
+        # add it completely
+            if (packs[i].weight <= remain):
+                remain -= packs[i].weight
+                result += packs[i].value
+
+                print("Pack ", i, " - Weight ", packs[i].weight, " - Value ", packs[i].value)
+            #fraction of the weight
+            if (packs[i].weight > remain):
+                i += 1
+
+            if (i == n):
+                stopProc = True
+
+        print("Max Value:\t", result)
+
+
+if __name__ == "__main__":
+    W = [] #defined 2 empty arrays 
+    V = []
+    num = int(input("Enter the number of weights or values required: \n"))
+
+    for i in range(num):
+        n = int(input(f"Enter weight {i+1} : "))
+        W.append(n)
+    print("\n")
+
+    for i in range(num):
+        n = int(input(f"Enter value {i+1} : "))
+        V.append(n)
+    print("\n")
+
+    M = int(input("Enter the cost: "))
+    n = len(V)  #length of value V array (4)
+    print("\n")
+    proc = FractionalKnapsack() #object of class 
+    proc.knapsackGreProc(W, V, M, n)    #calling function and passing the parameters
+
+------------------------------------------------------------------------------------------
+What is a Greedy Method?
+● A greedy algorithm is an approach for solving a problem by selecting the best option available at the moment. 
+It doesn't worry whether the current best result will bring the overall optimal result.
+● The algorithm never reverses the earlier decision even if the choice is wrong. It works in a top- down approach.
+● This algorithm may not produce the best result for all the problems.
+ It's because it always goes for the local best choice to produce the global best result.
+Advantages of Greedy Approach
+● The algorithm is easier to describe.
+● This algorithm can perform better than other algorithms (but, not in all cases).
+Drawback of Greedy Approach
+● As mentioned earlier, the greedy algorithm doesn't always produce the optimal solution. 
+This is the major disadvantage of the algorithm
+● For example, suppose we want to find the longest path in the graph below from root to leaf.
+Greedy Algorithm
+1. To begin with, the solution set (containing answers) is empty.
+2. At each step, an item is added to the solution set until a solution is reached.
+3. If the solution set is feasible, the current item is kept.
+4. Else, the item is rejected and never considered again.
+Knapsack Problem
+You are given the following-
+● A knapsack (kind of shoulder bag) with limited weight capacity.
+Few items each having some weight and value.
+The problem states-
+Which items should be placed into the knapsack such that-
+● The value or profit obtained by putting the items into the knapsack is maximum.
+● And the weight limit of the knapsack does not exceed.
+
+Fractional Knapsack Problem-
+In Fractional Knapsack Problem,
+● As the name suggests, items are divisible here.
+● We can even put the fraction of any item into the knapsack if taking the complete item is not
+
+Fractional Knapsack Problem Using Greedy Method-
+Fractional knapsack problem is solved using greedy method in the following steps-
+Step-01:
+For each item, compute its value / weight ratio.
+Step-02:
+Arrange all the items in decreasing order of their value / weight ratio.
+Step-03:
+Start putting the items into the knapsack beginning from the item with the highest ratio. 
+Put as many items as you can into the knapsack.
+
+Let us consider that the capacity of the knapsack W = 60 and the list of provided items are shown in the following table −
+
+Item			A	B	C	D
+Profit		280	100	120	120
+Weight		40	10	20	24
+Ratio (piwi)	7	10	6	5
+
+Time Complexity-
+● The main time taking step is the sorting of all items in decreasing order of their value / weight ratio.
+● If the items are already arranged in the required order, then while loop takes O(n) time.
+● The average time complexity of Quick Sort is O(nlogn).
+● Therefore, total time taken including the sort is O(nlogn).
