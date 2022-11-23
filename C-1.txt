@@ -1,0 +1,79 @@
+Assignment No : 13
+Title of the Assignment: Installation of MetaMask and study spending Ether per transaction
+Objective of the Assignment: Students should be able to learn new technology such as metamask.Its application and implementations
+Prerequisite:
+1. Basic knowledge of cryptocurrency
+2. Basic knowledge of distributed computing concept
+3. Working of blockchain
+---------------------------------------------------------------------------------------------------------------
+Contents for Theory:
+1. Introduction Blockchain
+2. Cryptocurrency
+3. Transaction Wallets
+4. Ether transaction
+5. Installation Process of Metamask
+
+Introduction to Blockchain
+● Blockchain can be described as a data structure that holds transactional records and while ensuring security, transparency, and decentralization. You can also think of it as a chain or records stored in the forms of blocks which are controlled by no single authority.
+● A blockchain is a distributed ledger that is completely open to any and everyone on the network. Once an information is stored on a blockchain, it is extremely difficult to change or alter it.
+● Each transaction on a blockchain is secured with a digital signature that proves its authenticity. Due to the use of encryption and digital signatures, the data stored on the blockchain is tamper-proof and cannot be changed.
+
+Blockchain Features
+The following features make the revolutionary technology of blockchain stand out:
+● Decentralized
+Blockchains are decentralized in nature meaning that no single person or group holds the authority of the overall network. While everybody in the network has the copy of the distributed ledger with them, no one can modify it on his or her own. This unique feature of blockchain allows transparency and security while giving power to the users.
+● Peer-to-Peer Network
+With the use of Blockchain, the interaction between two parties through a peer-to-peer model is easily accomplished without the requirement of any third party. Blockchain uses P2P protocol which allows all the network participants to hold an identical copy of transactions, enabling approval through a machine consensus. 
+
+Immutable
+The immutability property of a blockchain refers to the fact that any data once written on the blockchain cannot be changed. To understand immutability, consider sending email as an example. Once you send an email to a bunch of people, you cannot take it back. In order to find a way around, you’ll have to ask all the recipients to delete your email which is pretty tedious. This is how immutability works.
+● Tamper-Proof
+With the property of immutability embedded in blockchains, it becomes easier to detect tampering of any data. Blockchains are considered tamper-proof as any change in even one single block can be detected and addressed smoothly. There are two key ways of detecting tampering namely, hashes and blocks.
+
+MetaMask is a type of Ethereum wallet that bridges the gap between the user interfaces for
+Ethereum (For example, Mist browsers, DApps) and the regular web (For example, Google
+Chrome, Mozilla Firefox, websites). Its function is to inject a JavaScript library called
+web3.js into the namespace of each page your browser loads. Web3.js is written by the
+Ethereum core team. MetaMask is mainly used as a plugin in the web browser.
+Steps to Install:
+Step 1: Go to Chrome Web Store Extensions Section.
+Step 2: Search MetaMask.
+Step 3: Check the number of downloads to make sure that the legitimate MetaMask is
+being installed, as hackers might try to make clones of it.
+Step 4: Click the Add to Chrome button.
+Step 5: Once installation is complete this page will be displayed. Click on the Get
+Started button.
+Step 6: This is the first time creating a wallet, so click the Create a Wallet button. If there
+is already a wallet then import the already created using the Import Wallet button.
+
+Step 7: Click I Agree button to allow data to be collected to help improve MetaMask or
+else click the No Thanks button. The wallet can still be created even if the user will click on
+the No Thanks button.
+Step 8: Create a password for your wallet. This password is to be entered every time the
+browser is launched and wants to use MetaMask. A new password needs to be created if
+chrome is uninstalled or if there is a switching of browsers. In that case, go through
+the Import Wallet button. This is because MetaMask stores the keys in the browser. Agree
+to Terms of Use.
+
+Step 9: Click on the dark area which says Click here to reveal secret words to get your
+secret phrase.
+Step 10: This is the most important step. Back up your secret phrase properly. Do not store
+your secret phrase on your computer. Please read everything on this screen until you
+understand it completely before proceeding. The secret phrase is the only way to access
+your wallet if you forget your password. Once done click the Next button.
+Step 11: Click the buttons respective to the order of the words in your seed phrase. In other
+words, type the seed phrase using the button on the screen. If done correctly
+the Confirm button should turn blue.
+
+Step 12: Click the Confirm button.
+Step 13: One can see the balance and copy the address of the account by clicking on
+the Account 1 area.
+Step 14: One can access MetaMask in the browser by clicking the Foxface icon on the top
+right. If the Foxface icon is not visible, then click on the puzzle piece icon right next to it
+
+What advantages does MetaMask have?
+● Popular - It is commonly used, so users only need one plugin to access a wide range of dapps.
+● Simple - Instead of managing private keys, users just need to remember a list of words, and transactions are signed on their behalf.
+● Saves space - Users don’t have to download the Ethereum blockchain, as MetaMask sends requests to nodes outside of the user’s computer.
+● Integrated - Dapps are designed to work with MetaMask, so it becomes much easier to send Ether in and out.
+Conclusion- In this way we have explored Concept Blockchain and metamat wallet for transaction of digital currency

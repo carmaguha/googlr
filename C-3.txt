@@ -1,0 +1,96 @@
+// SPDX-License-Identifier: MIT
+pragma solidity  >=0.4.22;
+
+contract banking{
+    mapping(address=>uint) public userAccount;
+    mapping(address=>bool) public userExists;
+
+    constructor() public payable {
+        require(msg.value >= 30 ether, "At least 30 ether initial funding required");
+    }
+
+    function createAcc() public payable returns(address){
+        require(userExists[msg.sender] == false, 'Account already created');
+        if(msg.value == 0){
+            userAccount[msg.sender] = 0;
+            userExists[msg.sender] = true;
+            return msg.sender;
+        }
+        require(userExists[msg.sender] == false, 'Account already created');
+        userAccount[msg.sender] = msg.value;
+        userExists[msg.sender] = true;
+        return msg.sender;
+    }
+
+    function deposit() public payable returns(string memory){
+        require(userExists[msg.sender] == true, 'Account is not created');
+        require(msg.value > 0, 'Value for deposit is Zero');
+        userAccount[msg.sender] = userAccount[msg.sender] + msg.value;
+        return 'Deposited succesfully';
+    }
+
+    function withdraw(uint amount) public payable returns(string memory){
+        require(userAccount[msg.sender] > amount, 'Insufficeint balance in Bank account');
+        require(userExists[msg.sender] == true, 'Account is not created');
+        require(amount > 0, 'Enter non-zero value for withdrawal');
+        userAccount[msg.sender] = userAccount[msg.sender] - amount;
+        payable(msg.sender).transfer(amount);
+        return 'Withdrawal succesful';
+    }
+
+    function TransferAmount(address payable userAddress, uint amount) public returns(string memory){
+        require(userAccount[msg.sender] > amount, 'Insufficeint balance in Bank account');
+        require(userExists[msg.sender] == true, 'Account is not created');
+        require(userExists[userAddress] == true, 'to Transfer account does not exists in bank accounts ');
+        require(amount > 0, 'Enter non-zero value for sending');
+        userAccount[msg.sender] = userAccount[msg.sender] - amount;
+        userAccount[userAddress] = userAccount[userAddress] + amount;
+        return 'Transfer succesfully';
+    }
+
+    function sendAmount(address payable toAddress , uint256 amount) public payable returns(string memory){
+        require(amount > 0, 'Enter non-zero value for withdrawal');
+        require(userExists[msg.sender] == true, 'Account is not created');
+        require(userAccount[msg.sender] > amount, 'Insufficeint balance in Bank account');
+        userAccount[msg.sender] = userAccount[msg.sender] - amount;
+        payable(toAddress).transfer(amount);
+        return 'Transfer success';
+    }
+
+    function userAccountBalance() public view returns(uint){
+        return userAccount[msg.sender];
+    }
+
+    function accountExist() public view returns(bool){
+        return userExists[msg.sender];
+    }
+}
+
+-----------------------------------------------------------------------------------------
+Objective of the Assignment: Students should be able to learn new technology such as metamask.Its application and implementations
+Prerequisite:
+1. Basic knowledge of cryptocurrency
+2. Basic knowledge of distributed computing concept
+3. Working of blockchain.
+---------------------------------------------------------------------------------------------------------------
+Contents for Theory:
+The contract will allow deposits from any account, and can be trusted to allow withdrawals only by accounts that 
+have sufficient funds to cover  the requested withdrawal.
+This post assumes that you are comfortable with the ether-handling concepts introduced in our post,
+ Writing a Contract That Handles Ether.
+That post demonstrated how to restrict ether withdrawals to an “owner’s” account. It did this by persistently storing the
+ owner account’s address, and then comparing it to the
+ msg.sender value for any withdrawal attempt. Here’s a slightly simplified version of that 
+smart contract, which allows anybody to deposit money, but only allows the owner to make withdrawals:
+
+
+The code above demonstrates the following:
+ The require(amount <= balances[msg.sender]) checks to make sure the sender has sufficient funds to cover the requested withdrawal. 
+sIf not, then the transaction aborts without making any state changes or ether transfers.
+ The balanceOf mapping must be updated to reflect the lowered residual amount after the withdrawal.
+ The funds must be sent to the sender requesting the withdrawal.
+In the withdraw() function above, it is very important to adjust balanceOf[msg.sender] before transferring ether to avoid an exploitable vulnerability. The reason is specific to smart contracts and the fact that a transfer to a smart contract executes code in that smart contract. (The essentials of Ethereum transactions are discussed in How Ethereum Transactions Work.)
+Now, suppose that the code in withdraw() did not adjust balanceOf[msg.sender] before making the
+transfer and suppose that msg.sender was a malicious smart contract. Upon receiving the transfer—handled by msg.sender’s fallback function—that malicious contract could initiate another withdrawal from the banking contract. When the banking contract handles this second withdrawal request, it would have already transferred ether for the original withdrawal, but it would not have an updated balance, so it would allow this second withdrawal!
+This vulnerability is called a “reentrancy” bug because it happens when a smart contract invokes code in a different smart contract that then calls back into the original, thereby reentering the exploitable contract. For this reason, it’s essential to always make sure a contract’s internal state is fully updated before it potentially invokes code in another smart contract. 
+(And, it’s essential to remember that every transfer to a smart contract executes that contract’s code.)
