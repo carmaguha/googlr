@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.19;
+
+contract BankContract{
+    uint bankbalance=9000;
+
+    function deposit (uint x) public{ 
+        bankbalance = bankbalance + x;
+    }
+
+    function withdraw(uint x) public{ 
+        bankbalance = bankbalance -x;
+    }
+
+    function showbalance() public view returns (uint){ 
+        return bankbalance;
+    }
+}
